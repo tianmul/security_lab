@@ -67,6 +67,7 @@ function setup()
    app.locals.marked = marked;
 
    var isAdmin = sessionmanager.isAdminUserMiddleware;
+
    app.get("/", sessionmanager.displayWelcomePage);
 
    app.get("/login", sessionmanager.displayLoginPage);
@@ -100,10 +101,6 @@ function setup()
    app.get("/contributions", contributions.displayContributions);
    app.post("/contributions", contributions.handleContributionsUpdate);
 
-   // Benefits Page
-   app.get("/benefits", benefits.displayBenefits);
-   app.post("/benefits", benefits.updateBenefits);
-
    // Allocations Page
    app.get("/allocations/:userId", allocations.displayAllocations);
 
@@ -115,6 +112,11 @@ function setup()
    app.get("/learn", function(req, res, next) {
 	      return res.redirect(req.query.url);
 	    });
+
+   // Benefits Page
+   app.get("/benefits", benefits.displayBenefits);
+   app.post("/benefits", benefits.updateBenefits);
+
 
    // Error handling middleware
    app.use(errorHandler);
