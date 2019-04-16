@@ -19,7 +19,7 @@ var db = require("./database.js");
 
 function addMemos(req,res,next)
 {
-   var memo = req.body.memo;
+   var memo = req.body.memo.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 
    var q = "INSERT INTO Memos(memo) VALUES ( '" + memo + "' )";
    db.query(q,function(e1,d1) { addMemos1(req,res,next,e1,d1); });
@@ -55,7 +55,7 @@ function displayMemos(req,res,next)
 function displayMemos1(req,res,next,err,data)
 {
     if (err) next(err);
-    
+ 
     var doc = { memosList: data.rows, userId : req.session.userId };
     
     return res.render("memos",doc);
