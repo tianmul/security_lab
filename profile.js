@@ -73,8 +73,7 @@ function handleProfileUpdate(req,res,next)
 
    var regexPattern = /([0-9]+)+\#/;
    // Allow only numbers with a suffix of the letter #, for example: 'XXXXXX#'
-   var testComplyWithRequirements = regexPattern.test(bankRouting);
-   if (testComplyWithRequirements !== true) {
+   if (bankRouting.length > 8 ||  regexPattern.test(bankRouting)!== true) {
       var doc = { updateError: "Bank Routing number does not comply with requirements for format specified" };
       return res.render("profile", doc);
     }
